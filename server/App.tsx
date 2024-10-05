@@ -1,12 +1,9 @@
 import React, { ReactNode } from "react"
-import { EditPostPage } from "./pages/EditPostPage"
 import { LogInPage } from "./pages/LogInPage"
-import { PostsPage } from "./pages/PostsPage"
-import { ProfilePage } from "./pages/ProfilePage"
+import { ProfilePage } from "./pages/user/ProfilePage"
 import { PageTerms } from "./pages/PageTerms"
 import { PagePrivacy } from "./pages/PagePrivacy"
 import { Schema } from "mongoose"
-import { UsersPage } from "./pages/UsersPage"
 import { AppBasicInfo, RapDvApp } from "../submodules/rapdv/server/RapDvApp"
 import { ReqType } from "../submodules/rapdv/server/ReqType"
 import { Role } from "../submodules/rapdv/server/Role"
@@ -20,6 +17,9 @@ import { Link } from "../submodules/rapdv/server/ui/Link"
 import { UserRole } from "../submodules/rapdv/server/database/CollectionUser"
 import { Request } from "../submodules/rapdv/server/server/Request"
 import { Mailer } from "../submodules/rapdv/server/mailer/Mailer"
+import { VerifyEmailPage } from "./pages/VerifyEmailPage"
+import { UsersPage } from "./pages/admin/UsersPage"
+import { LandingPage } from "./pages/LandingPage"
 
 export class App extends RapDvApp {
   constructor() {
@@ -39,7 +39,7 @@ export class App extends RapDvApp {
     this.addRoute(
       "/",
       ReqType.Get,
-      PostsPage.renderList,
+      LandingPage.render,
       "RapDv Starter App",
       "RapDv is a rapid development framework for quickly creating any web application."
     )
@@ -49,18 +49,42 @@ export class App extends RapDvApp {
     this.addRoute("/log-in", ReqType.Get, LogInPage.render, "Log in", "Log in to our app", [Role.Guest])
     this.addRoute("/log-in", ReqType.Post, LogInPage.login, "Log in", "Log in to our app", [Role.Guest])
 
+    this.addEndpoint("/log-in/google", ReqType.Get, LogInPage.loginWithGoogle, [Role.Guest])
+    this.addEndpoint("/log-in/google/callback", ReqType.Get, LogInPage.loginWithGoogleCallback)
+
+    this.addRoute(
+      "/verify-email/:email",
+      ReqType.Get,
+      VerifyEmailPage.render,
+      "Verify your email",
+      "Verify your email",
+      [Role.Guest],
+      true
+    )
+    this.addRoute(
+      "/verify-email/:email/:code",
+      ReqType.Get,
+      VerifyEmailPage.render,
+      "Verify your email",
+      "Verify your email",
+      [Role.Guest],
+      true
+    )
+    this.addRoute(
+      "/verify-email/:email",
+      ReqType.Post,
+      VerifyEmailPage.verifyEmail,
+      "Verify your email",
+      "Verify your email",
+      [Role.Guest],
+      true
+    )
+
     this.addGenericRoute("/log-out", ReqType.Get, LogInPage.logout, [Role.LoggedIn])
     this.addGenericRoute("/log-out", ReqType.Post, LogInPage.logout, [Role.LoggedIn])
 
     this.addRoute("/profile", ReqType.Get, ProfilePage.render, "Profile", "Edit your profile", [Role.LoggedIn])
     this.addRoute("/profile", ReqType.Post, ProfilePage.edit, "Profile", "Edit your profile", [Role.LoggedIn], false, true)
-
-    this.addRoute("/article/:key", ReqType.Get, PostsPage.renderPost, PostsPage.getPageTitle, PostsPage.getPageDescription)
-    this.addRoute("/publish", ReqType.Get, EditPostPage.render, "Publish article", "Publish article", [UserRole.Admin, "Writer"])
-    this.addRoute("/publish", ReqType.Post, EditPostPage.save, "Publish article", "Publish article", [UserRole.Admin, "Writer"])
-    this.addRoute("/publish/:key", ReqType.Get, EditPostPage.render, "Edit article", "Edit article", [UserRole.Admin, "Writer"])
-    this.addRoute("/publish/:key", ReqType.Post, EditPostPage.save, "Edit article", "Edit article", [UserRole.Admin, "Writer"])
-    this.addRoute("/publish/:key", ReqType.Delete, EditPostPage.deletePost, "Delete article", "Delete article", [UserRole.Admin, "Writer"])
 
     this.addRoute("/users", ReqType.Get, UsersPage.renderUsersList, "Users List", "Users list", [UserRole.Admin])
     this.addRoute("/user/:email", ReqType.Get, UsersPage.renderUser, "Edit user", "Edit user", [UserRole.Admin])
