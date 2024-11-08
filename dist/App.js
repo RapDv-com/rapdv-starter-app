@@ -2944,7 +2944,7 @@ const app = new (0, _appClient.AppClient)();
 app.start(pages);
 
 },{"../submodules/rapdv/client/app/AppClient":"7SZo4","./styles/style.scss":"5NKOb"}],"7SZo4":[function(require,module,exports) {
-// Copyright (C) Digital Jetty Konrad Gadzinowski - All Rights Reserved
+// Copyright (C) Digital Jetty Konrad Gadzinowski
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "AppClient", ()=>AppClient);
@@ -9812,7 +9812,7 @@ var createPopper = /*#__PURE__*/ (0, _createPopperJs.popperGenerator)({
 });
 
 },{}],"jcT59":[function(require,module,exports) {
-// Copyright (C) Digital Jetty Konrad Gadzinowski - All Rights Reserved
+// Copyright (C) Digital Jetty Konrad Gadzinowski
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "PagesCtrl", ()=>PagesCtrl);
@@ -9860,7 +9860,7 @@ class PagesCtrl {
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gCcLc":[function(require,module,exports) {
-// Copyright (C) Digital Jetty Konrad Gadzinowski - All Rights Reserved
+// Copyright (C) Digital Jetty Konrad Gadzinowski
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Form", ()=>Form);

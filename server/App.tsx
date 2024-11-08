@@ -20,6 +20,7 @@ import { Mailer } from "../submodules/rapdv/server/mailer/Mailer"
 import { VerifyEmailPage } from "./pages/VerifyEmailPage"
 import { UsersPage } from "./pages/admin/UsersPage"
 import { LandingPage } from "./pages/LandingPage"
+import { AuthGoogle } from "../submodules/rapdv/server/auth/AuthGoogle"
 
 export class App extends RapDvApp {
   constructor() {
@@ -33,6 +34,7 @@ export class App extends RapDvApp {
   })
 
   public initAuth: () => Promise<void> = async () => {
+    AuthGoogle.configure()
   }
 
   getPages = async () => {
