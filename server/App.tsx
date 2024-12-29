@@ -37,6 +37,8 @@ export class App extends RapDvApp {
     AuthGoogle.configure()
   }
 
+  getHeadTags = async () => ""
+
   getPages = async () => {
     this.addRoute(
       "/",
