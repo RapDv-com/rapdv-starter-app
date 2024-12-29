@@ -37,8 +37,6 @@ export class App extends RapDvApp {
     AuthGoogle.configure()
   }
 
-  getHeadTags = async () => ""
-
   getPages = async () => {
     this.addRoute(
       "/",
@@ -94,6 +92,8 @@ export class App extends RapDvApp {
     this.addRoute("/user/:email", ReqType.Get, UsersPage.renderUser, "Edit user", "Edit user", [UserRole.Admin])
     this.addRoute("/user/:email", ReqType.Post, UsersPage.updateUser, "Edit user", "Edit user", [UserRole.Admin])
   }
+
+  getHeadTags = async () => ""
 
   getLayout = async (req: Request, content: ReactNode, appInfo: AppBasicInfo): Promise<ReactNode> => {
     const year = new Date().getFullYear()
