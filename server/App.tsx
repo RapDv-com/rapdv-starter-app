@@ -107,9 +107,6 @@ export class App extends RapDvApp {
               <NavLink href="/log-in" icon="bi bi-box-arrow-in-left" req={req} restrictions={[Role.Guest]}>
                 Log In
               </NavLink>
-              <NavLink href="/publish" req={req} restrictions={[UserRole.Admin, "Writer"]}>
-                Publish
-              </NavLink>
               <NavLink href="/users" req={req} restrictions={[UserRole.Admin]}>
                 Users
               </NavLink>
@@ -147,13 +144,6 @@ export class App extends RapDvApp {
       },
       {}
     )
-
-    this.addCollection("Comment", {
-      content: String,
-      post: { type: Schema.Types.ObjectId, ref: "Post" },
-      author: { type: Schema.Types.ObjectId, ref: "User" },
-      publishedDate: Date
-    })
 
     await this.addDbEvolution(1, "Initial database version", async (currentVersion: number) => {})
   }
