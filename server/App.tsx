@@ -21,6 +21,8 @@ import { VerifyEmailPage } from "./pages/VerifyEmailPage"
 import { UsersPage } from "./pages/admin/UsersPage"
 import { LandingPage } from "./pages/LandingPage"
 import { AuthGoogle } from "../submodules/rapdv/server/auth/AuthGoogle"
+import { ViewError } from "./pages/base/ViewError"
+import { ViewLayout } from "./pages/base/ViewLayout"
 
 export class App extends RapDvApp {
   constructor() {
@@ -95,40 +97,44 @@ export class App extends RapDvApp {
 
   getHeadTags = async () => ""
 
-  getLayout = async (req: Request, content: ReactNode, appInfo: AppBasicInfo): Promise<ReactNode> => {
-    const year = new Date().getFullYear()
+  getLayout = async (
+    req: Request,
+    canonicalUrl: string,
+    title: string,
+    description: string,
+    content: ReactNode | string,
+    styleTags: ReactNode,
+    disableIndexing: boolean,
+    clientFilesId: string,
+    otherOptions?: any
+  ): Promise<ReactNode> => {
+    const appInfo = this.getBasicInfo()
+    const appName = appInfo.name
+    const photoSrc = await req?.user?.getPhotoSrc()
+    const isProduction = RapDvApp.isProduction()
     return (
-      <>
-        <header>
-          <Nav appName={appInfo.name} className="navbar-dark bg-dark">
-            <ul className="navbar-nav me-auto">
-            </ul>
-            <ul className="navbar-nav ms-auto">
-              <NavLink href="/log-in" icon="bi bi-box-arrow-in-left" req={req} restrictions={[Role.Guest]}>
-                Log In
-              </NavLink>
-              <NavLink href="/users" req={req} restrictions={[UserRole.Admin]}>
-                Users
-              </NavLink>
-              <NavDropdown title={req?.user?.email} icon={await req?.user?.getPhotoSrc()} req={req} restrictions={[Role.LoggedIn]}>
-                <NavDropdownItem href="/profile">Profile</NavDropdownItem>
-                <NavDropdownItem href="/log-out">Log out</NavDropdownItem>
-              </NavDropdown>
-            </ul>
-          </Nav>
-        </header>
-        <main>
-          <FlashMessages req={req} />
-          {content}
-        </main>
-        <Footer>
-          Company Inc ©{year}
-          <Link href="/terms">Terms and Conditions</Link>
-          <Link href="/privacy">Privacy Policy</Link>
-        </Footer>
-      </>
+      <ViewLayout
+        title={title}
+        description={description}
+        canonicalUrl={canonicalUrl}
+        disableIndexing={disableIndexing}
+        styles={styleTags}
+        isProduction={isProduction}
+        appName={appName}
+        req={req}
+        photoSrc={photoSrc}
+        clientFilesId={clientFilesId}
+      >
+        {content}
+      </ViewLayout>
     )
   }
+
+  getErrorView = async (error) => ({
+    title: "Error | RapDv Starter App",
+    description: "Something went wrong",
+    content: <ViewError error={error} />
+  })
 
   getRoles = () => ["Writer"]
 
@@ -142,7 +148,7 @@ export class App extends RapDvApp {
         content: String,
         publishedDate: Date
       },
-      []
+      {}
     )
   }
 
