@@ -140,7 +140,7 @@ export class App extends RapDvApp {
         content: String,
         publishedDate: Date
       },
-      {}
+      []
     )
   }
 
