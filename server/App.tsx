@@ -15,6 +15,7 @@ import { LandingPage } from "./pages/LandingPage"
 import { AuthGoogle } from "../submodules/rapdv/server/auth/AuthGoogle"
 import { ViewError } from "./pages/base/ViewError"
 import { ViewLayout } from "./pages/base/ViewLayout"
+import { Post } from "./entities/Post"
 
 export class App extends RapDvApp {
   constructor() {
@@ -129,25 +130,10 @@ export class App extends RapDvApp {
   getRoles = () => ["Writer"]
 
   getStorage = async () => {
-    this.addCollection(
-      "Post",
-      {
-        key: { type: String, unique: true },
-        title: String,
-        description: String,
-        content: String,
-        publishedDate: Date
-      },
-      []
-    )
+    this.addCollection("Post", Post)
   }
 
   public startRecurringTasks = async (mailer: Mailer): Promise<void> => {
     // Place for starting recurring tasks
-  }
-
-  public addDatabaseEvolutions = async () => {
-    // Place for adding database evolutions
-    await this.addDbEvolution(1, "Initial database version", async (currentVersion: number) => {})
   }
 }
