@@ -8,6 +8,7 @@ import { ReqType } from "../submodules/rapdv/server/ReqType"
 import { Role } from "../submodules/rapdv/server/Role"
 import { UserRole } from "../submodules/rapdv/server/database/CollectionUser"
 import { Request } from "../submodules/rapdv/server/server/Request"
+import { Response } from "express"
 import { Mailer } from "../submodules/rapdv/server/mailer/Mailer"
 import { VerifyEmailPage } from "./pages/VerifyEmailPage"
 import { UsersPage } from "./pages/admin/UsersPage"
@@ -92,6 +93,7 @@ export class App extends RapDvApp {
 
   getLayout = async (
     req: Request,
+    res: Response,
     canonicalUrl: string,
     title: string,
     description: string,
