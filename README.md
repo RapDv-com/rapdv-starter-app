@@ -11,6 +11,9 @@ The easiest way to start a new web app that uses [RapDv - Rapid Development Fram
 - Start MongoDB
 - Copy `.env.example` to `.env`, and set correct values in `.env files`
 
+### To start MariaDB database locally in dev mode
+`docker run -d --name mariadb -e MARIADB_DATABASE=rapdv-cms-dev -e MARIADB_ROOT_PASSWORD=password -p 3306:3306 mariadb`
+
 ## Run application in development
 `npm start`
 
