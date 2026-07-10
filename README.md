@@ -23,3 +23,10 @@ The easiest way to start a new web app that uses [RapDv - Rapid Development Fram
 ## Application structure
 - Back-end code is in `server` folder
 - Front-end code is in `client` folder. After modifying client code, you need to run `npm run build-prod` to rebuild it.
+
+---
+
+### Creator
+
+Crafted with care at **[Digital Jetty](https://digitaljetty.com)** - Software design and development company.  
+Need a hand with your next project? [Get in touch](https://digitaljetty.com/services).
